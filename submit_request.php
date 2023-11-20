@@ -1,4 +1,7 @@
 <?php
+require 'vendor/autoload.php';
+use Mailgun\Mailgun;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Extract and sanitize form data
     $firstName = htmlspecialchars($_POST['firstName']);
@@ -15,20 +18,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $emailContent .= "Quantity: $quantity\n";
     $emailContent .= "Additional Comments: $additionalComments\n";
 
-    // Specify your email and subject
-    $to = 'thestickerguy@outlook.com';
-    $subject = 'New Sticker Request';
+    // Mailgun API credentials
+    $mgClient = Mailgun::create(getenv('0c70e849177a816269a5cd54a33f3dc0-5d2b1caa-7f8ff39e')); // Replace with your API key
+    $domain = getenv('sandbox0985551ca46d4b069cf8f11fd8cf9fc4.mailgun.org'); // Replace with your Mailgun domain
 
-    // Headers
-    $headers = "From: webmaster@example.com\r\n";
-    $headers .= "Reply-To: $email\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion();
+    // Prepare the email data
+    $params = array(
+        'from'    => 'jacobturner127@hotmail.com', // Replace with your email
+        'to'      => 'thestickerguy@outlook.com',
+        'subject' => 'New Sticker Request',
+        'text'    => $emailContent
+    );
 
     // Send the email
-    if (mail($to, $subject, $emailContent, $headers)) {
+    try {
+        $result = $mgClient->messages()->send($domain, $params);
         echo "Request sent successfully!";
-    } else {
-        echo "Failed to send the request.";
+    } catch (Exception $e) {
+        echo 'Failed to send the request: ' . $e->getMessage();
     }
 }
 ?>
+
