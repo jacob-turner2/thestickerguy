@@ -1,1 +1,7 @@
-<?php include_once(“homepage.html”); ?>
+<?php
+// Set the content type to HTML
+header("Content-Type: text/html");
+
+// Include the HTML content
+include("homepage.html");
+?>
