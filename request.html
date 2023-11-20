@@ -3,23 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Sticker Guy Stickers Requests</title>
+    <title>Sticker Request Form</title>
     <!-- Add your CSS file link here -->
     <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
+    <h1>Custom Sticker Request</h1>
+    <form action="submit_request.php" method="post" enctype="multipart/form-data">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="Main">
-            <h1>Requests Page</h1>
-            <p>Find the perfect sticker for your laptop, water bottle, and more!</p>
-        </section>
-    </main>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br>
 
-    <footer>
-        <!-- Footer Content -->
-        <p>&copy; 2023 Your Sticker Shop</p>
-    </footer>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="imageUpload">Upload Image(s):</label>
+        <input type="file" id="imageUpload" name="imageUpload[]" multiple><br>
+
+        <label for="size">Size (e.g., 2x2 inches):</label>
+        <input type="text" id="size" name="size" required><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required><br>
+
+        <label for="additionalComments">Additional Comments:</label>
+        <textarea id="additionalComments" name="additionalComments"></textarea><br>
+
+        <input type="submit" value="Submit Request">
+    </form>
 </body>
 </html>
